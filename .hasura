@@ -1,0 +1,10 @@
+clusters:
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: hasura
+  data: null
+  kubeContext: crackerjack65
+  name: crackerjack65
+defaultCluster: ""
+isQuickStart: ""
