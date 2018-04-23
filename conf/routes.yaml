@@ -240,3 +240,14 @@ kfm:
     upstreamServicePort: 80
 
 
+
+ui:
+  /:
+    corsPolicy: allow_all
+    upstreamService:
+      name: ui
+      namespace: '{{ cluster.metadata.namespaces.user }}'
+    upstreamServicePath: /
+    upstreamServicePort: 80
+
+
