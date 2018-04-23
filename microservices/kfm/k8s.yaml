@@ -19,7 +19,7 @@ items:
           app: '{{ microservice.name }}'
       spec:
         containers:
-        - image: hasura/kubeformation-api:fbae1bf
+        - image: hasura/kubeformation-api:865facf
           imagePullPolicy: IfNotPresent
           name: '{{ microservice.name }}'
           ports:
