@@ -1,0 +1,105 @@
+.parent {
+}
+
+.primitiveComponentParent {
+  margin-bottom: 20px;
+}
+
+.child {
+    display: inline-block;
+    margin: 2px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: -10px;
+  font-size: 12px;
+  font-weight: lighter;
+}
+
+.keyValuePair {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.keyValuePair .deleteButton_20 {
+  cursor: pointer;
+  width: 5%;
+}
+
+.keyValuePair .pairTitle {
+  width: 47.5%;
+}
+
+.keyValuePair input  {
+  margin-right: 5px;
+  width: 47.5%;
+}
+
+.width_100 {
+  width: 100%
+}
+
+.rightButton {
+  float: right;
+}
+
+.labelButtonContainer {
+  display: inline-block;
+  padding-left: 0px;
+}
+
+.displayInline {
+  display: inline-block;
+  float: left;
+}
+
+.removeLeftPadding {
+  padding-left: 0px;
+}
+
+.remoteRightPadding {
+  padding-right: 0px;
+}
+
+.labelWithAddButton label{
+  display: block;
+}
+
+.labelWithAddButton button{
+  margin-bottom: 10px;
+  width: 100%
+}
+
+.labelWithAddButton .children {
+  margin: 10px 0px;
+}
+
+.arrayCard {
+  width: 100%;
+  position: relative;
+  background-color: #ededed;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.arrayCard .elements {
+  padding: 20px;
+}
+
+.arrayCard .deleteButton {
+  width: auto !important;
+  background-color: transparent;
+  float: right;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.arrayCard .deleteButton:focus {
+  border: none;
+}

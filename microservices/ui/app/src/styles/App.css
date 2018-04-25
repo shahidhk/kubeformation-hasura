@@ -1,0 +1,75 @@
+.header {
+  padding: 60px;
+  text-align: center;
+  background-color: #2196F3
+}
+
+.header h1 {
+  font-size: 54px;
+  margin: 0;
+  font-weight: 600;
+  text-align: center;
+  color: #FFF;
+}
+
+.centeredContainer {
+  text-align: center;
+}
+
+.step1Container {
+  padding: 0px 10px;
+  margin-bottom: 20px;
+}
+
+.spacedButtons {
+  margin: 20px;
+  width: 100px;
+}
+
+.step2Container {
+  background-color: #f1f1f1;
+  padding: 20px;
+  clear: both;
+}
+
+.step2Container button {
+  margin-top: 20px;
+}
+
+.builderContainer {
+  margin: 0 auto;
+  width: 40%;
+}
+
+.code-container {
+  padding: 20px;
+  width: 60%;
+  text-align: left;
+  margin-right: 10px;
+  font-weight: 300;
+}
+
+.darkgraybg_color_getstart
+{
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #222222;
+  clear: both;
+  padding: 5px 0;
+  box-shadow: 0 0 5px 0 #111;
+  display: flex;
+  align-items: center;
+}
+
+.quickstart_cmds::before {
+  content: '$> ';
+  color: #aaa;
+  margin-right: 10px;
+}
+
+.removebg_color
+{
+  background-color: transparent;
+  color: #fff;
+}
