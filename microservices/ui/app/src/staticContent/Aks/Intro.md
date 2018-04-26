@@ -12,6 +12,8 @@ templates (**ARM**).
   here](https://azure.microsoft.com/en-us/free/))
 - [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/) CLI
 
+---
+
 ## Step 1 - Generate ARM template
 
-Start by building the `cluster.yaml` file using the builder below
+Build `cluster.yaml` and download the template:

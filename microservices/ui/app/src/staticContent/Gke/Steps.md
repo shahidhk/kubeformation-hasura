@@ -1,7 +1,11 @@
-This will give us the following files:
-- `gke-cluster.yaml`
-- `gke-cluster.jinja`
+Unzip the downloaded file. It has the following files:
+
+- `cluster.yaml` (the cluster spec)
+- `gke-cluster.yaml` (parameter definition)
+- `gke-cluster.jinja` (actual resource definition)
 - `k8s-volumes.yaml` (only if `volumes` are present in the spec)
+
+---
 
 ## Step 2 - Add parameters
 
@@ -25,6 +29,8 @@ resources:
     zone: ZONE
 ```
 
+---
+
 ## Step 3 - Create the cluster
 
 Create the cluster (and any disks) as defined by `gke-cluster.yaml`:
@@ -33,13 +39,15 @@ Create the cluster (and any disks) as defined by `gke-cluster.yaml`:
 $ gcloud deployment-manager deployments create my-cluster --config gke-cluster.yaml
 ```
 
-That's it! The GKE cluster will be created.
+The GKE cluster will be created.
 
 Get `kubectl` context to connect to the cluster:
 
 ```bash
 $ gcloud container clusters get-credentials my-cluster --zone <zone> --project <project>
 ```
+
+---
 
 ## Step 4 - Create K8s Persistent Volumes
 
@@ -50,6 +58,8 @@ used by other k8s deployments etc.
 ```bash
 $ kubectl create -f k8s-volumes.yaml
 ```
+
+---
 
 ## Tearing down
 

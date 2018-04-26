@@ -1,8 +1,12 @@
-This will give us the following files:
+Unzip the downloaded files. It will have the following files:
+
+- `cluster.yaml` (The cluster spec)
 - `aks-deploy.json` (ARM template file, defines all the resources)
 - `aks-params.json` (ARM parameters file, defines params used by template)
 - `aks-disks.json` (ARM template for creating disks, created only if `volumes` are present)
 - `k8s-volumes.yaml` (k8s pv/pvc objects, created only if `volumes` are present)
+
+---
 
 ## Step 2 - Add parameters
 
@@ -23,6 +27,8 @@ The output will be a JSON, of which `appId` is the `SERVICE-PRINCIPAL-CLIENT-ID`
 and `password` is `SERVICE-PRINCIPAL-CLIENT-SECRET`.
 
 These parameters should be added to `aks-params.json` file, by replacing the placeholders.
+
+---
 
 ## Step 3 - Create the cluster
 
@@ -53,6 +59,8 @@ Get `kubectl` context to connect to the cluster:
 $ az aks get-credentials -g my-resource-group -n my-cluster
 ```
 
+---
+
 ## Step 4 - Create K8s Persistent Volumes
 
 If the cluster spec also contains volumes, along with underlying disks, the
@@ -75,6 +83,8 @@ Create the k8s resources:
 ```bash
 $ kubectl create -f k8s-volumes.yaml
 ```
+
+---
 
 ## Tearing down
 

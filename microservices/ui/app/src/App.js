@@ -304,7 +304,7 @@ class App extends Component {
       return
     }
 
-    const fileName = `cluster-${this.state.data[this.state.selectedProvider].name}`
+    const fileName = `cluster-${this.state.data[this.state.selectedProvider].name}.zip`
     var url = 'https://kfm.crackerjack65.hasura-app.io/render?download=true'
 
     var requestOptions = {
