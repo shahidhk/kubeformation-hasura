@@ -116,9 +116,62 @@
 
 .markdown.greybg {
   width: 100%;
-  padding: 50px 25%;
+  padding: 30px 25%;
 }
 
 .greybg {
   background: #eee;
+}
+
+@media(max-width: 767px) {
+  .markdown {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .markdown.greybg {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .builderContainer {
+    width: 95%;
+  }
+
+  .footer {
+    width: 100%;
+    padding: 50px 20px;
+    padding-top: 0;
+    margin-top: -20px;
+  }
+
+  .spacedButtons {
+    margin: 6px;
+    width: 80px;
+  }
+
+  .header {
+    padding: 40px 10px;
+    text-align: center;
+    background-color: #2196F3;
+  }
+
+  .header h1 {
+    font-size: 35px;
+    margin-bottom: 20px;
+    margin: 0;
+    font-weight: 600;
+    text-align: center;
+    color: #FFF;
+  }
+
+  .header h4 {
+    font-size: 15px;
+    color: #ffffffa8;
+  }
+
+  .header .header-img {
+    width: 100%;
+    margin-top: 15px;
+  }
 }
