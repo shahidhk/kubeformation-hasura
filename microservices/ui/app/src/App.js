@@ -323,8 +323,12 @@ class App extends Component {
     }
 
     const fileName = `cluster-${this.state.data[this.state.selectedProvider].name}.zip`
-    var url = 'https://kfm.crackerjack65.hasura-app.io/render?download=true'
 
+    const windowLocation = window.location
+    var url = `${windowLocation.protocol}//api.${windowLocation.host}/render?download=true`
+    if (process.env === 'dev') {
+      url = 'https://kfm.crackerjack65.hasura-app.io/render?download=true'
+    }
     var requestOptions = {
       method: 'POST',
       body: JSON.stringify(this.convertStateToAPIRequestFormat(data, specConfig))
