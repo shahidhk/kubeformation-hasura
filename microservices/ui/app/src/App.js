@@ -388,13 +388,6 @@ class App extends Component {
                 )
               })
             }
-            <a target='_blank' rel="noopener noreferrer" href='https://github.com/hasura/kubeformation/issues/10'>
-              <button
-                type="button"
-                className='btn btn-outline-secondary spacedButtons'>
-                EKS
-              </button>
-            </a>
             <a target='_blank' rel="noopener noreferrer" href='https://github.com/hasura/kubeformation/issues/11'>
               <button
                 type="button"
