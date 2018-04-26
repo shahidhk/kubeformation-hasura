@@ -71,7 +71,7 @@ $ az aks get-credentials -g my-resource-group -n my-cluster
 
 ---
 
-## Step 4 - Create K8s Persistent Volumes
+## Step 4 - Create k8s persistent volumes
 
 If the cluster spec also contains volumes, along with underlying disks, the
 Kubernetes PV & PVC objects also have to be created, so that the disks can be
