@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ProviderSpecBuilder from './components/ProviderSpecBuilder'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import download from 'downloadjs'
 import CustomMarkdown from './components/CustomMarkdown/CustomMarkdown'
 import { providerList } from './helper/specHelper'
@@ -195,6 +196,8 @@ class App extends Component {
         if (helperFunc) {
           const dataArray = helperFunc(state.data[this.state.selectedProvider])
           dataArray[index][pairKey] = newValue
+          console.log('Key Value Change Handler')
+          console.log(dataArray)
           dataArray.forEach((d) => {
             if (d.name === '' && d.value === '') {
               shouldAddNewPair = false
@@ -403,6 +406,7 @@ class App extends Component {
             <CustomMarkdown className='markdown' markdown={this.state.content[this.state.selectedProvider].steps}/>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }
