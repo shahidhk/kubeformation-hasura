@@ -4,7 +4,7 @@ const image = require('../staticContent/images/hasura-logo.png')
 
 const Footer = () => (
   <div className="footer">
-    <hr />
+    <hr/>
     <div className="wd_60 display_inline">
       <div className="logo">
         <a href="http://www.hasura.io" target="_blank" rel="noopener noreferrer">

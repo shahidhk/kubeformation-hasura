@@ -420,7 +420,7 @@ class App extends Component {
           <div className='markdown'>
             <CustomMarkdown className='markdown' markdown={this.state.content[this.state.selectedProvider].steps}/>
           </div>
-          <div className='markdown'>
+          <div className='markdown greybg'>
             <CustomMarkdown className='markdown' markdown={this.state.content.projectInfo}/>
           </div>
         </div>
