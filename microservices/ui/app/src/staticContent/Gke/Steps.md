@@ -9,6 +9,14 @@ Unzip the downloaded file. It has the following files:
 
 ## Step 2 - Add parameters
 
+### Pre-requisites
+
+- [`gcloud`](https://cloud.google.com/sdk/gcloud/) CLI
+- A project on Google Cloud (check [this
+  link](https://cloud.google.com/resource-manager/docs/creating-managing-projects)
+  to create one)
+- [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/) CLI
+
 The following parameters which are provider specific need to be added:
 - `ZONE` - GCP zone where the cluster has to be created
 - `PROJECT` - GCP project
