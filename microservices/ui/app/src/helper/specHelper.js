@@ -1289,7 +1289,7 @@ const getDefaultValue = (key, provider) => {
 }
 
 const getProviderSpecSchema = (provider) => {
-  return [
+  const schema =  [
     {
       key: 'version',
       title: 'Version',
@@ -1353,27 +1353,6 @@ const getProviderSpecSchema = (provider) => {
           type: 'number',
           defaultValue: 1
         },
-        {
-          key: 'labels',
-          minRequired: 0,
-          title: 'Labels',
-          description: 'Kubernetes labels to be applied to each node in the pool',
-          type: 'key-value',
-          spec: [
-            {
-              key: 'name',
-              title: 'Key',
-              required: true,
-              type: 'string'
-            },
-            {
-              key: 'value',
-              title: 'Value',
-              required: true,
-              type: 'string'
-            }
-          ]
-        }
       ]
     },
     {
@@ -1403,6 +1382,34 @@ const getProviderSpecSchema = (provider) => {
       ]
     }
   ]
+
+  const labelSchema = {
+    key: 'labels',
+    minRequired: 0,
+    title: 'Labels',
+    description: 'Kubernetes labels to be applied to each node in the pool',
+    type: 'key-value',
+    spec: [
+      {
+        key: 'name',
+        title: 'Key',
+        required: true,
+        type: 'string'
+      },
+      {
+        key: 'value',
+        title: 'Value',
+        required: true,
+        type: 'string'
+      }
+    ]
+  }
+
+  if (provider === 'gke') {
+    schema[4].spec.push(labelSchema)
+  }
+
+  return schema
 }
 
 const getDataTemplateFromSpecConfig = (specSchema) => {
