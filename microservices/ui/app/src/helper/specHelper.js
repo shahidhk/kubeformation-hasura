@@ -1408,7 +1408,7 @@ const getProviderSpecSchema = (provider) => {
 const getDataTemplateFromSpecConfig = (specSchema) => {
   const dataTemplate = {}
   specSchema.forEach((s,i) => {
-    var value = s.defaultValue
+    var value = s.defaultValue || ''
     switch (s.type) {
       case 'options':
       case 'default':
