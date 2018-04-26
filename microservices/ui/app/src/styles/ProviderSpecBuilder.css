@@ -113,3 +113,10 @@
   width: 100%;
   margin-top: 8px;
 }
+
+@media(max-width: 767px) {
+
+  .downloadButton {
+    font-size: 5px;
+  }
+}

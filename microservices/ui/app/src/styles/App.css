@@ -114,9 +114,9 @@
   width: 150px;
 }
 
-.markdown .greybg {
+.markdown.greybg {
   width: 100%;
-  padding: 50px 25%;
+  padding: 30px 25%;
 }
 
 .greybg {
@@ -129,9 +129,9 @@
     padding: 10px 20px;
   }
 
-  .markdown .greybg {
+  .markdown.greybg {
     width: 100%;
-    padding: 0px;
+    padding: 20px;
   }
 
   .builderContainer {
@@ -146,7 +146,7 @@
   }
 
   .spacedButtons {
-    margin: 12px;
+    margin: 6px;
     width: 80px;
   }
 
