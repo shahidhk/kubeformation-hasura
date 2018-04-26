@@ -230,7 +230,7 @@ notify:
 
 # To see actual endpoints for these routes, use `$ hasura ms ls`
 
-kfm:
+api:
   /:
     corsPolicy: allow_all
     upstreamService:
@@ -241,7 +241,7 @@ kfm:
 
 
 
-ui:
+"":
   /:
     corsPolicy: allow_all
     upstreamService:
