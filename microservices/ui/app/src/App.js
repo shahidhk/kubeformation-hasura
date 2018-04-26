@@ -239,7 +239,7 @@ class App extends Component {
           const keyValueObj = {}
           state[s.key].forEach((pair, i) => {
             if (pair.name !== '' || pair.value !== '') {
-              keyValueObj[pair.name] = pair.value              
+              keyValueObj[pair.name] = pair.value
             }
           })
           requestBody[s.key] = keyValueObj

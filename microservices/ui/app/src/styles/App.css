@@ -1,15 +1,25 @@
 .header {
-  padding: 60px;
+  padding: 100px;
   text-align: center;
   background-color: #2196F3
 }
 
 .header h1 {
   font-size: 54px;
+  margin-bottom: 20px;
   margin: 0;
   font-weight: 600;
   text-align: center;
   color: #FFF;
+}
+
+.header h4 {
+  color: #ffffffa8;
+}
+
+.header .header-img {
+  width: 80%;
+  margin-top: 20px;
 }
 
 .centeredContainer {
@@ -17,7 +27,7 @@
 }
 
 .step1Container {
-  padding: 0px 10px;
+  padding: 0px auto;
   margin-bottom: 20px;
 }
 
@@ -36,8 +46,8 @@
 }
 
 .builderContainer {
-  margin: 0 100px;
-  width: 40%;
+  margin: 0 auto;
+  width: 50%;
 }
 
 .code-container {
@@ -75,5 +85,6 @@
 
 
 .markdown {
-  margin: 20px 100px;
+  margin: 20px auto;
+  width: 50%;
 }
