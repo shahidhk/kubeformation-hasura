@@ -18,7 +18,7 @@ your cluster. You can edit this file to add vendor specific configuration too.
 #### Roadmap
 
 Kubeformation is open to evolution. Current goal is to support all managed
-Kubernetes vendors who support declarative specification.
+Kubernetes vendors that support declarative specification.
 
 - EKS support ([#10](https://github.com/hasura/kubeformation/issues/10))
 - Other providers ([#11](https://github.com/hasura/kubeformation/issues/11))
@@ -38,4 +38,6 @@ get started.
 
 #### Maintainers
 
-Current maintainers [@shahidh_k](https://twitter.com/shahidh_k) and [@arvishankar](https://twitter.com/arvishankar).
+Current maintainers: [@shahidh_k](https://twitter.com/shahidh_k) and
+[@arvishankar](https://twitter.com/arvishankar). Website maintained by
+[@JaisonTitus](https://twitter.com/JaisonTitus). 
