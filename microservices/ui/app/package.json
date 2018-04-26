@@ -6,6 +6,8 @@
     "downloadjs": "^1.4.7",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-highlight.js": "^1.0.7",
+    "react-markdown": "^3.3.0",
     "react-scripts": "1.1.4",
     "react-select": "^1.2.1",
     "react-selectable": "^2.0.1"

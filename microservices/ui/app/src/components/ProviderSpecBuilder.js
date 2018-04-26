@@ -4,9 +4,10 @@ import '../styles/ProviderSpecBuilder.css'
 
 export default class ProviderSpecBuilder extends Component {
 
-  getUIFromSpec = (specSchema, data, func) => {
+  getUIFromSpec = (specSchema, data, func, previousKey) => {
     return specSchema.map((singleSpecSchema, index) => {
       const key = singleSpecSchema.key
+      const errorKey = previousKey ? `${previousKey}+${key}` : `${key}`
       const title = singleSpecSchema.title || singleSpecSchema.key
       const description = singleSpecSchema.description || null
       var isInputDisabled = false
@@ -19,6 +20,7 @@ export default class ProviderSpecBuilder extends Component {
             <TextInput
               key={key}
               title={title}
+              error={this.props.error[errorKey]}
               description={description}
               value={value}
               onChangeHandler={this.props.changeHandlerCreator(key, func)}
@@ -29,6 +31,7 @@ export default class ProviderSpecBuilder extends Component {
             <TextInput
               key={key}
               title={title}
+              error={this.props.error[errorKey]}
               description={description}
               value={value}
               type={'number'}
@@ -40,6 +43,7 @@ export default class ProviderSpecBuilder extends Component {
             <TextInput
               key={key}
               title={title}
+              error={this.props.error[errorKey]}
               description={description}
               value={value}
               type={'text'}
@@ -51,6 +55,7 @@ export default class ProviderSpecBuilder extends Component {
             <ListSelect
               key={key}
               title={title}
+              error={this.props.error[errorKey]}
               description={description}
               value={value}
               onChangeHandler={this.props.changeHandlerCreator(key, func)}
@@ -63,26 +68,39 @@ export default class ProviderSpecBuilder extends Component {
             if (d.name === '' && d.value === '') {
               shouldAddNewPair = false
             }
+            const errorObj = {
+              name: this.props.error[`${errorKey}+${i}+name`],
+              value: this.props.error[`${errorKey}+${i}+value`]
+            }
             return (
               <KeyValuePair
                 key={i}
-                name={d.name} value={d.value} onChangeHandler={this.props.keyValueChangeHandlerCreator(this.props.getArrayHelperFunc(key, i, func))}
-                deleteHandler={shouldAllowDelete ? this.props.deleteClickHandler(key, i, func) : null}/>
+                name={d.name} value={d.value} error={errorObj}
+                onChangeHandler={
+                  this.props.keyValueChangeHandlerCreator(
+                    this.props.keyValuePairHelperFunc(key, func),
+                    i,
+                    singleSpecSchema.spec
+                  )
+                }
+                deleteHandler={
+                  shouldAllowDelete ?
+                  this.props.deleteClickHandler(key, i, func)
+                  : null
+                }/>
             )
           })
-          if (shouldAddNewPair) {
-            this.props.addNewObjToArray(key, singleSpecSchema.spec, func)
-          }
           return (
             <KeyValueContainer
               key={key}
               title={title}
+              error={this.props.error[errorKey]}
               description={description}
               children={objElements}/>
           )
         case 'array':
           const arrayElements = data[key].map((d, i) => {
-            const elements = this.getUIFromSpec(singleSpecSchema.spec, d, this.props.getArrayHelperFunc(key, i, func))
+            const elements = this.getUIFromSpec(singleSpecSchema.spec, d, this.props.getArrayHelperFunc(key, i, func), `${errorKey}+${i}`)
             return (
               <div key={i}>
                 <div className="card arrayCard">
@@ -100,12 +118,13 @@ export default class ProviderSpecBuilder extends Component {
             <div key={key}>
               <LabelWithAddButton
                 title={title}
+                error={this.props.error[errorKey]}
                 buttonTitle={singleSpecSchema.buttonTitle}
                 description={description}
                 children={arrayElements}
                 addButtonClickHandler={this.props.addButtonClickHandler(key, singleSpecSchema, func)}/>
             </div>
-          ) 
+          )
         default: return null
       }
     })
@@ -118,6 +137,10 @@ export default class ProviderSpecBuilder extends Component {
           <div className="card-body">
             <form>
               {this.getUIFromSpec(this.props.specConfig, this.props.data)}
+              <hr className='cardFooterBreakLine'/>
+              <button className='btn btn-primary btn-md downloadButton' onClick={this.props.downloadClickHandler}>
+                {this.props.downloadButtonText}
+              </button>
             </form>
           </div>
         </div>

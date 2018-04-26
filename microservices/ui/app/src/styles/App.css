@@ -27,7 +27,6 @@
 }
 
 .step2Container {
-  background-color: #f1f1f1;
   padding: 20px;
   clear: both;
 }
@@ -37,7 +36,7 @@
 }
 
 .builderContainer {
-  margin: 0 auto;
+  margin: 0 100px;
   width: 40%;
 }
 
@@ -72,4 +71,9 @@
 {
   background-color: transparent;
   color: #fff;
+}
+
+
+.markdown {
+  margin: 20px 100px;
 }

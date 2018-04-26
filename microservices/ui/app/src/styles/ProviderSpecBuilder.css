@@ -1,4 +1,5 @@
-.parent {
+.error {
+  color: red
 }
 
 .primitiveComponentParent {
@@ -102,4 +103,13 @@
 
 .arrayCard .deleteButton:focus {
   border: none;
+}
+
+.cardFooterBreakLine {
+  margin: 10px -20px;
+}
+
+.downloadButton {
+  width: 100%;
+  margin-top: 8px;
 }

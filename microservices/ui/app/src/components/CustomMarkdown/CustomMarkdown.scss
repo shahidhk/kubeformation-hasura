@@ -1,0 +1,126 @@
+@import '../Common/Common.scss';
+
+.fixed_header_internal_link {
+  display: block;
+  position: relative;
+  top: -100px;
+  visibility: hidden;
+}
+
+.section_description
+{
+  font-size: 14px;
+  line-height: 1.8;
+  padding: 15px;
+  font-weight: 600;
+  background: #eee;
+}
+
+.collapse_footer {
+  cursor: pointer;
+  padding-bottom: 4px;
+  background: #eee;
+  text-align: center;
+  color: #07C;
+}
+
+:global(.md-collapsed) {
+  transition: height 1s;
+  max-height: 200px;
+  padding-bottom: 5px;
+}
+
+.bor_bottom
+{
+  border-bottom: 1px solid #EAECEE;
+}
+
+.collapsible {
+  transition: max-height 1s;
+  //max-height: 1000px;
+  overflow: hidden;
+  // border: 1px solid #eee;
+  //padding: 0 20px !important;
+}
+
+.drag_over {
+  border-color: green;
+}
+
+.tab_btn
+{
+  height: 100%;
+  border: 0;
+  background-color: transparent;
+  padding: 15px 20px;
+}
+
+.tab_btn:focus
+{
+  outline: none;
+}
+
+.active_btn
+{
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+}
+
+.active_edit_btn
+{
+  background-color: #fff;
+}
+
+.active_preview_btn
+{
+  background-color: #eee;
+}
+
+.preview_content {
+  padding: 15px 20px;
+}
+
+.textarea
+{
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  resize: vertical;
+}
+
+.textarea_subtext
+{
+  border-top: 1px dashed #666;
+  font-size: 12px;
+  margin-top: -5px;
+  padding: 6px 4px;
+}
+
+.markdown_ref_link {
+  color: inherit
+}
+
+.markdown_ref_link:hover, .markdown_ref_link:active, .markdown_ref_link:link {
+  text-decoration: none;
+}
+
+.edit_markdown_wrapper {
+  border: 1px solid #ccc;
+}
+
+.edit_wrapper {
+  margin: 0 20px;
+  clear: both;
+}
+
+.markdown_icon {
+  vertical-align: middle !important;
+  fill: currentColor;
+}
+
+.scroll_markdown {
+  max-height: 400px;
+  overflow: auto;
+}

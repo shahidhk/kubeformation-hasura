@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/ProviderSpecBuilder.css'
 
-const TextInput = ({title, description, type, value, onChangeHandler, disabled}) => {
+const TextInput = ({title, description, type, error, value, onChangeHandler, disabled}) => {
   return (
     <div className='primitiveComponentParent form-group'>
       <Label title={title} description={description} />
@@ -11,6 +11,9 @@ const TextInput = ({title, description, type, value, onChangeHandler, disabled})
         value={value}
         onChange={onChangeHandler}
         readOnly={disabled}/>
+      {
+        error ? <Error message={error}/> : null
+      }
     </div>
   )
 }
@@ -22,7 +25,7 @@ const Description = ({value}) => {
   return null
 }
 
-const ListSelect = ({title, description, value, options, onChangeHandler}) => {
+const ListSelect = ({title, description, value, error, options, onChangeHandler}) => {
   const id = `${title}ListSelect`
   return (
     <div className="form-group">
@@ -38,7 +41,10 @@ const ListSelect = ({title, description, value, options, onChangeHandler}) => {
           ))
         }
        </select>
-     </div>
+       {
+         error ? <Error message={error}/> : null
+       }
+    </div>
   )
 }
 
@@ -51,7 +57,13 @@ const Label = ({title, description}) => {
   )
 }
 
-const LabelWithAddButton = ({title, description, buttonTitle, children, addButtonClickHandler}) => {
+const Error = ({message}) => {
+  return (
+    <label className='error'>{message}</label>
+  )
+}
+
+const LabelWithAddButton = ({title, description, error, buttonTitle, children, addButtonClickHandler}) => {
   return (
     <div className='labelWithAddButton'>
       <label className='title'>{title}</label>
@@ -59,6 +71,9 @@ const LabelWithAddButton = ({title, description, buttonTitle, children, addButto
       <div className='children'>
         {children}
       </div>
+      {
+        error ? <Error message={error}/> : null
+      }
       <button
         type='button'
         className='btn btn-outline-secondary btn-sm'
@@ -69,11 +84,14 @@ const LabelWithAddButton = ({title, description, buttonTitle, children, addButto
   )
 }
 
-const KeyValueContainer = ({title, description, children, }) => {
+const KeyValueContainer = ({title, description, error, children, }) => {
   return (
     <div className='keyValueContainer'>
       <label className='title'>{title}</label>
       <Description value={description}/>
+      {
+        error ? <Error message={error}/> : null
+      }
       <div className='keyValuePair'>
         <div className="pairTitle">Key</div>
         <div className="pairTitle">Value</div>
@@ -83,30 +101,39 @@ const KeyValueContainer = ({title, description, children, }) => {
   )
 }
 
-const KeyValuePair = ({name, value, onChangeHandler, deleteHandler}) => {
+const KeyValuePair = ({name, value, error, onChangeHandler, deleteHandler}) => {
   return (
-    <div className='keyValuePair form-group input-group-sm mb-3'>
-      <input
-        type='text'
-        className="form-control "
-        value={name}
-        onChange={(e) => {
-          onChangeHandler('name', e)
-        }}/>
-      <input
-        className="form-control"
-        value={value}
-        onChange={(e) => {
-          onChangeHandler('value', e)
-        }}/>
+    <div>
+      <div className='keyValuePair form-group input-group-sm mb-3'>
+        <input
+          type='text'
+          className="form-control"
+          value={name}
+          onChange={(e) => {
+            onChangeHandler('name', e)
+          }}/>
+        <input
+          className="form-control"
+          value={value}
+          onChange={(e) => {
+            onChangeHandler('value', e)
+          }}/>
+        {
+          deleteHandler ?
+          <div className='deleteButton_20' onClick={deleteHandler}>
+            <i className="fas fa-times"></i>
+          </div>
+          : <div className='deleteButton_20'/>
+        }
+      </div>
       {
-        deleteHandler ?
-        <div className='deleteButton_20' onClick={deleteHandler}>
-          <i className="fas fa-times"></i>
-        </div>
-        : <div className='deleteButton_20'/>
+        error.name ? <Error message={error.name}/> : null
+      }
+      {
+        error.value ? <Error message={error.value}/> : null
       }
     </div>
+
   )
 }
 

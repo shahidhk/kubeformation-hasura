@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ProviderSpecBuilder from './components/ProviderSpecBuilder'
 import Header from './components/Header'
 import download from 'downloadjs'
+import CustomMarkdown from './components/CustomMarkdown/CustomMarkdown'
 import { providerList } from './helper/specHelper'
 import './styles/App.css'
 
@@ -23,8 +24,60 @@ class App extends Component {
     this.state = {
       selectedProvider: providerList[0],
       specConfig: specConfig,
-      data: data
+      data: data,
+      error: {},
+      content: {
+        aks: {
+          intro: '',
+          steps: ''
+        },
+        gke: {
+          intro: '',
+          steps: ''
+        }
+      }
     }
+  }
+
+  loadContentFromFile = (content, stateUpdateFunc) => {
+    fetch(content)
+    .then(response => {
+      return response.text()
+    })
+    .then(text => {
+      stateUpdateFunc(text)
+    })
+  }
+
+  componentWillMount() {
+    const aksIntro = require('./staticContent/Aks/Intro.md');
+    const aksContent = require('./staticContent/Aks/Steps.md');
+    this.loadContentFromFile(aksIntro, (text) => {
+      this.setState(state => {
+        state.content['aks'].intro = text
+        return state
+      })
+    })
+    this.loadContentFromFile(aksContent, (text) => {
+      this.setState(state => {
+        state.content['aks'].steps = text
+        return state
+      })
+    })
+    const gkeIntro = require('./staticContent/Gke/Intro.md');
+    const gkeContent = require('./staticContent/Gke/Steps.md');
+    this.loadContentFromFile(gkeIntro, (text) => {
+      this.setState(state => {
+        state.content['gke'].intro = text
+        return state
+      })
+    })
+    this.loadContentFromFile(gkeContent, (text) => {
+      this.setState(state => {
+        state.content['gke'].steps = text
+        return state
+      })
+    })
   }
 
   handleProviderSelectionChange = (provider) => {
@@ -32,6 +85,7 @@ class App extends Component {
       e.preventDefault()
       this.setState({
         ...this.state,
+        error: {},
         selectedProvider: provider
       })
     }
@@ -117,30 +171,48 @@ class App extends Component {
     }
   }
 
-  keyValuePairHelperFunc = (key, index, previousHelperFunc) => {
+  keyValuePairHelperFunc = (key, previousHelperFunc) => {
     const helperFunc = previousHelperFunc
-    const i = index
     const specKey = key
     return (state) => {
       if (helperFunc) {
         const obj = helperFunc(state)
-        return obj[specKey][i]
+        return obj[specKey]
       }
-      return state[specKey][i]
+      return state[specKey]
     }
   }
 
-  keyValueChangeHandlerCreator = (func) => {
+  keyValueChangeHandlerCreator = (func, i, s) => {
     const helperFunc = func
+    const index = i
+    const dataTemplate = getDataTemplateFromSpecConfig(s)
     return (pairKey, e) => {
       const newValue = e.target.value
       this.setState(state => {
+        var shouldAddNewPair = true
         if (helperFunc) {
-          const node = helperFunc(state.data[this.state.selectedProvider])
-          node[pairKey] = newValue
+          const dataArray = helperFunc(state.data[this.state.selectedProvider])
+          dataArray[index][pairKey] = newValue
+          dataArray.forEach((d) => {
+            if (d.name === '' && d.value === '') {
+              shouldAddNewPair = false
+            }
+          })
+          if (shouldAddNewPair) {
+            dataArray.push(dataTemplate)
+          }
           return state
         }
-        state.data[this.state.selectedProvider][pairKey] = newValue
+        state.data[this.state.selectedProvider][index][pairKey] = newValue
+        state.data[this.state.selectedProvider].forEach(d => {
+          if (d.name === '' && d.value === '') {
+            shouldAddNewPair = false
+          }
+        })
+        if (shouldAddNewPair) {
+          state.data[this.state.selectedProvider].push(dataTemplate)
+        }
         return state
       })
     }
@@ -166,7 +238,9 @@ class App extends Component {
         case 'key-value':
           const keyValueObj = {}
           state[s.key].forEach((pair, i) => {
-            keyValueObj[pair.name] = pair.value
+            if (pair.name !== '' || pair.value !== '') {
+              keyValueObj[pair.name] = pair.value              
+            }
           })
           requestBody[s.key] = keyValueObj
           break
@@ -176,11 +250,62 @@ class App extends Component {
     return requestBody
   }
 
+  isFormValid = (data, spec, previousKey, errorState) => {
+    spec.forEach((s, i) => {
+      const newKey = previousKey ? `${previousKey}+${s.key}` : `${s.key}`
+      switch (s.type) {
+        case 'default':
+        case 'string':
+        case 'options':
+        case 'number':
+          if (s.required) {
+            if (data[s.key] === '') {
+              errorState[newKey] = `${s.title} is a required parameter`
+            }
+          }
+          break
+        case 'key-value':
+          if (data[s.key].length < s.minRequired) {
+            errorState[newKey] = `Atleast ${s.minRequired} value for ${s.title.toLowerCase()} is required`
+          }
+          if (data[s.key].length > 0) {
+            data[s.key].forEach((d, i) => {
+              if (d.name !== '' || d.value !== '') {
+                this.isFormValid(d, s.spec, `${newKey}+${i}`, errorState)
+              }
+            })
+          }
+          break
+        case 'array':
+          if (data[s.key].length < s.minRequired) {
+            errorState[newKey] = `Atleast ${s.minRequired} value for ${s.title.toLowerCase()} is required`
+          } else if (data[s.key].length > 0) {
+            data[s.key].forEach((d, i) => {
+              this.isFormValid(d, s.spec, `${newKey}+${i}`, errorState)
+            })
+          }
+          break
+        default:
+      }
+    })
+    return errorState
+  }
+
   downloadTemplate = () => {
-    const fileName = `cluster-${this.state.name}`
-    var url = 'https://kfm.crackerjack65.hasura-app.io/render?download=true'
     const data = this.state.data[this.state.selectedProvider]
     const specConfig = this.state.specConfig[this.state.selectedProvider]
+
+    const errorState = this.isFormValid(data, specConfig, null, {})
+    this.setState(state => {
+      state.error = errorState
+      return state
+    })
+    if (Object.keys(errorState).length !== 0 && errorState.constructor === Object) {
+      return
+    }
+
+    const fileName = `cluster-${this.state.data[this.state.selectedProvider].name}`
+    var url = 'https://kfm.crackerjack65.hasura-app.io/render?download=true'
 
     var requestOptions = {
       method: 'POST',
@@ -201,16 +326,30 @@ class App extends Component {
     });
   }
 
+  downloadClickHandler = (e) => {
+    e.preventDefault()
+    this.downloadTemplate()
+  }
+
   render() {
+    console.log(this.state)
     const providerSpecData = this.state.data[this.state.selectedProvider]
     const specConfig = this.state.specConfig[this.state.selectedProvider]
-    console.log(this.state)
+    const error = this.state.error
+    let downloadButtonText = "Download "
+    switch (this.state.selectedProvider) {
+      case 'gke':
+        downloadButtonText += "Deployment Manager Template"
+        break;
+      case 'aks':
+        downloadButtonText += "Resource Manager Template"
+    }
     return (
       <div>
         <Header />
         <div className='step1Container'>
           <div className='centeredContainer'>
-            <h2>Step 1: Build the spec</h2>
+            <h2>Choose a provider</h2>
             {
               providerList.map((provider, index) => {
                 var className = 'btn btn-outline-secondary spacedButtons'
@@ -237,48 +376,29 @@ class App extends Component {
             </a>
           </div>
           <hr />
+          <div className='markdown'>
+            <CustomMarkdown className='markdown' markdown={this.state.content[this.state.selectedProvider].intro}/>
+          </div>
           <div className='builderContainer'>
             <ProviderSpecBuilder
-              data={providerSpecData}
-              specConfig={specConfig}
+              data={providerSpecData} specConfig={specConfig} error={error}
               addButtonClickHandler={this.addButtonClickHandler}
               deleteClickHandler={this.deleteClickHandler}
               getObjectHelperFunc={this.getObjectHelperFunc}
               getArrayHelperFunc={this.getArrayHelperFunc}
               changeHandlerCreator={this.changeHandlerCreator}
-              addNewObjToArray={this.addNewObjToArray}
-              keyValueChangeHandlerCreator={this.keyValueChangeHandlerCreator}/>
+              keyValuePairHelperFunc={this.keyValuePairHelperFunc}
+              keyValueChangeHandlerCreator={this.keyValueChangeHandlerCreator}
+              downloadButtonText={downloadButtonText}
+              downloadClickHandler={this.downloadClickHandler}/>
           </div>
-        </div>
-        <div className='step2Container'>
-          <div className='centeredContainer'>
-            <h2>Step 2 - Download and use deployment manager template</h2>
-            <button className='btn btn-primary btn-lg ' onClick={(e) => {
-                e.preventDefault()
-                this.downloadTemplate()
-              }}>Download</button>
-            <div className='darkgraybg_color_getstart'>
-              <code className='code-container removebg_color'>
-                <div className='quickstart_cmds'>
-                  hasura quickstart hello-world
-                </div>
-                <div className='quickstart_cmds'>
-                  cd hello-world
-                </div>
-                <div className='quickstart_cmds'>
-                  git add . && git commit -m "First Commit"
-                </div>
-                <div className='quickstart_cmds'>
-                  git push hasura master
-                </div>
-              </code>
-            </div>
+          <div className='markdown'>
+            <CustomMarkdown className='markdown' markdown={this.state.content[this.state.selectedProvider].steps}/>
           </div>
         </div>
       </div>
     );
   }
 }
-
 
 export default App;
