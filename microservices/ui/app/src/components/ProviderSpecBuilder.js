@@ -63,11 +63,7 @@ export default class ProviderSpecBuilder extends Component {
           )
         case 'key-value':
           const shouldAllowDelete = data[key].length > 1 ? true : false
-          var shouldAddNewPair = true;
           const objElements = data[key].map((d, i) => {
-            if (d.name === '' && d.value === '') {
-              shouldAddNewPair = false
-            }
             const errorObj = {
               name: this.props.error[`${errorKey}+${i}+name`],
               value: this.props.error[`${errorKey}+${i}+value`]

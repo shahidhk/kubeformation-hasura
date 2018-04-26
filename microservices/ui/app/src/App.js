@@ -36,7 +36,8 @@ class App extends Component {
         gke: {
           intro: '',
           steps: ''
-        }
+        },
+        projectInfo: ''
       }
     }
   }
@@ -77,6 +78,13 @@ class App extends Component {
     this.loadContentFromFile(gkeContent, (text) => {
       this.setState(state => {
         state.content['gke'].steps = text
+        return state
+      })
+    })
+    const projectInfo = require('./staticContent/ProjectInfo.md');
+    this.loadContentFromFile(projectInfo, (text) => {
+      this.setState(state => {
+        state.content['projectInfo'] = text
         return state
       })
     })
@@ -376,6 +384,13 @@ class App extends Component {
                 )
               })
             }
+            <a target='_blank' rel="noopener noreferrer" href='https://github.com/hasura/kubeformation/issues/10'>
+              <button
+                type="button"
+                className='btn btn-outline-secondary spacedButtons'>
+                EKS
+              </button>
+            </a>
             <a target='_blank' rel="noopener noreferrer" href='https://github.com/hasura/kubeformation/issues/11'>
               <button
                 type="button"
@@ -404,6 +419,9 @@ class App extends Component {
           </div>
           <div className='markdown'>
             <CustomMarkdown className='markdown' markdown={this.state.content[this.state.selectedProvider].steps}/>
+          </div>
+          <div className='markdown'>
+            <CustomMarkdown className='markdown' markdown={this.state.content.projectInfo}/>
           </div>
         </div>
         <Footer />

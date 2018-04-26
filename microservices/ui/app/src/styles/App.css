@@ -83,8 +83,33 @@
   color: #fff;
 }
 
-
 .markdown {
   margin: 20px auto;
   width: 50%;
+}
+
+.footer {
+  margin: 0 auto;
+  width: 50%;
+  padding: 10px 0px;
+}
+
+.footer .bottomPadding {
+  padding-bottom: 10px;
+}
+
+.wd_60 {
+  width: 60%;
+}
+
+.display_inline {
+  display: inline;
+}
+
+.logo {
+  padding-bottom: 20px;
+}
+
+.logo .image {
+  width: 150px;
 }
