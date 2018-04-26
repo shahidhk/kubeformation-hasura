@@ -23,6 +23,8 @@ To create service principal, execute the following command:
 $ az ad sp create-for-rbac --name my-cluster-sp
 ```
 
+(note: it could take some time for service principal to get created.)
+
 The output will be a JSON, of which `appId` is the `SERVICE-PRINCIPAL-CLIENT-ID`
 and `password` is `SERVICE-PRINCIPAL-CLIENT-SECRET`.
 
