@@ -4,6 +4,7 @@ import Header from './components/Header'
 import download from 'downloadjs'
 import CustomMarkdown from './components/CustomMarkdown/CustomMarkdown'
 import { providerList } from './helper/specHelper'
+import ReactDOM from 'react-dom';
 import './styles/App.css'
 
 import {
@@ -291,6 +292,11 @@ class App extends Component {
     return errorState
   }
 
+  scrollToForm = () => {
+    const specBuilderNode = ReactDOM.findDOMNode(this.refs.providerSpecBuilder)
+    window.scrollTo(0, specBuilderNode.offsetTop)
+  }
+
   downloadTemplate = () => {
     const data = this.state.data[this.state.selectedProvider]
     const specConfig = this.state.specConfig[this.state.selectedProvider]
@@ -301,6 +307,7 @@ class App extends Component {
       return state
     })
     if (Object.keys(errorState).length !== 0 && errorState.constructor === Object) {
+      this.scrollToForm()
       return
     }
 
@@ -332,7 +339,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
     const providerSpecData = this.state.data[this.state.selectedProvider]
     const specConfig = this.state.specConfig[this.state.selectedProvider]
     const error = this.state.error
@@ -381,6 +387,7 @@ class App extends Component {
           </div>
           <div className='builderContainer'>
             <ProviderSpecBuilder
+              ref='providerSpecBuilder'
               data={providerSpecData} specConfig={specConfig} error={error}
               addButtonClickHandler={this.addButtonClickHandler}
               deleteClickHandler={this.deleteClickHandler}
