@@ -6,5 +6,12 @@ clusters:
   data: null
   kubeContext: crackerjack65
   name: crackerjack65
+- alias: prod
+  config:
+    configmap: controller-conf
+    namespace: hasura
+  data: null
+  kubeContext: woozy09
+  name: woozy09
 defaultCluster: ""
 isQuickStart: ""
