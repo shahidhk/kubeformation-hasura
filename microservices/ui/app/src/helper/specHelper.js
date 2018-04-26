@@ -1310,7 +1310,7 @@ const getProviderSpecSchema = (provider) => {
       required: true,
       description: 'Name of the cluster',
       type: 'string',
-      defaultValue: 'myCluster'
+      defaultValue: 'my-cluster'
     },
     {
       key: 'k8sVersion',
@@ -1334,7 +1334,7 @@ const getProviderSpecSchema = (provider) => {
           required: true,
           description: 'Name of the node pool',
           type: 'string',
-          defaultValue: 'myPool'
+          defaultValue: 'pool1'
         },
         {
           key: 'type',
@@ -1369,7 +1369,7 @@ const getProviderSpecSchema = (provider) => {
           required: true,
           description: 'Name of the disk/volume',
           type: 'string',
-          defaultValue: 'myVolume'
+          defaultValue: 'my-volume'
         },
         {
           key: 'size',

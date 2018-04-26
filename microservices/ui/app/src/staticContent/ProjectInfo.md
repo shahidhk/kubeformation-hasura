@@ -38,6 +38,6 @@ get started.
 
 #### Maintainers
 
-Current maintainers: [@shahidh_k](https://twitter.com/shahidh_k) and
-[@arvishankar](https://twitter.com/arvishankar). Website maintained by
+Current maintainers: [@shahidh_k](https://twitter.com/shahidh_k),
+[@arvishankar](https://twitter.com/arvishankar),
 [@JaisonTitus](https://twitter.com/JaisonTitus). 
