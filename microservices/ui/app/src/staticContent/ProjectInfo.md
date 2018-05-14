@@ -9,7 +9,7 @@ services, provisioning a Kubernetes cluster via the vendor’s API becomes
 declarative as well.
 
 Kubeformation is a simple web UI and CLI that helps you create “Google
-Deployment manager” or “Azure Resoure Manager” templates which are a _little_
+Deployment manager” or “Azure Resource Manager” templates which are a _little_
 painful to create by hand.
 
 Once you have this file, you can run your cloud vendor CLI on it to provision
