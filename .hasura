@@ -1,10 +1,13 @@
 clusters:
+- alias: hasura
+  config: {}
+  data: null
 - alias: prod
   config:
     configmap: controller-conf
     namespace: hasura
   data: null
-  kubeContext: woozy09
-  name: woozy09
+  kubeContext: improbably02
+  name: improbably02
 defaultCluster: ""
 isQuickStart: ""
